@@ -30,8 +30,8 @@ class Dataset(torch.utils.data.Dataset):
         self.nms = config.NMSMASK_REVERSE
 
         # my configs
-        if (config.TEST_NO_CROP != 0) and (training is False):
-            # 不裁剪直接进行测试, 不影响训练行为
+        if config.TEST_NO_CROP != 0:
+            # 不裁剪直接进行测试和训练
             self.crop_flag = False
         else:
             self.crop_flag = True
@@ -108,7 +108,7 @@ class Dataset(torch.utils.data.Dataset):
             print('+++++++++++++++')
 
         mask = imread(self.mask_data[mask_index])
-        mask = self.resize(mask, imgh, imgw)
+        mask = self.resize(mask, imgh, imgw, centerCrop=self.crop_flag)
         mask = (mask > self.mask_threshold).astype(np.uint8) * 255       # threshold due to interpolation
 
 

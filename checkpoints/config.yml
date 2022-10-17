@@ -7,13 +7,13 @@ SEED: 10            # random seed
 DEBUG: 1            # turns on debugging mode
 VERBOSE: 0          # turns on verbose mode in the output console
 
-TRAIN_FLIST: ./data/kexo_flist_train.txt
+TRAIN_FLIST: ./data/kexi_flist_train.txt
 VAL_FLIST: ./data/kexo_flist.txt
 TEST_FLIST: ./data/kexo_flist.txt             #./data/face.txt
 
-TRAIN_MASK_FLIST: ./data/kexo_fov_mlist_train.txt                            #./data/mask_20.txt
+TRAIN_MASK_FLIST: ./data/kexi_fov_mlist_train.txt                            #./data/mask_20.txt
 VAL_MASK_FLIST: ./data/kexo_fov20_mlist.txt
-TEST_MASK_FLIST: ./data/kexo_fov20_mlist.txt     #./data/mask_20.txt
+TEST_MASK_FLIST: ./data/kexo_fov5_mlist.txt     #./data/mask_20.txt
 TRAIN_MASK_BIN: 1    # use single channel mask
 TEST_MASK_BIN: 1    # use single channel mask
 
@@ -24,7 +24,7 @@ BETA2: 0.9                    # adam optimizer beta2
 
 INPUT_SIZE: 256               # input image size for training 0 for original size (default: 256)
 SIGMA: 2                      # standard deviation of the Gaussian filter used in Canny edge detector (0: random, -1: no edge)
-MAX_ITERS: 2e6                # maximum number of iterations to train the model
+MAX_ITERS: 400001                # maximum number of iterations to train the model  (default: 2e6)
 
 EDGE_THRESHOLD: 0.5           # edge detection threshold
 L1_LOSS_WEIGHT: 1             # l1 loss weight
@@ -47,12 +47,12 @@ MASK_THRESHOLD: 0               # 100 dunhuang
 
 
 GPU: [0]            # list of gpu ids
-BATCH_SIZE: 2                 # input batch size for training
+BATCH_SIZE: 1                 # input batch size for training, 1 for default
 
-SAVE_INTERVAL: 1          # how many iterations to wait before saving model (0: never)
-EVAL_INTERVAL: 1             # how many iterations to wait before model evaluation (0: never)
+SAVE_INTERVAL: 10000         # how many iterations to wait before saving model (0: never) (default: 1)
+EVAL_INTERVAL: 1000000       # how many iterations to wait before model evaluation (0: never) (default: 1)
 
-TRAIN_SAMPLE_INTERVAL: 1
+TRAIN_SAMPLE_INTERVAL: 10    # (default: 1)
 EVAL_SAMPLE_INTERVAL: 1
 
 FILTER_TYPE: '64' #
@@ -60,14 +60,14 @@ FILTER_TYPE: '64' #
 TRAIN_SAMPLE_SAVE: D:\MyProject\PyThon\FlowInpainting\misf\results\train_sample
 EVAL_SAMPLE_SAVE: D:\MyProject\PyThon\FlowInpainting\misf\results\eval_sample
 TEST_SAMPLE_SAVE: D:\MyProject\PyThon\FlowInpainting\misf\results\KITTI360-EXI         #./result/test_20
-TEST_SAVE_FINAL: 0    #only output inpainting result (pre2) , 0 for all save
+TEST_SAVE_FINAL: 1    #only output inpainting result (pre2) , 0 for all save
 TEST_SAVE_HEIGHT: 240 # 0 for 256.
 TEST_SAVE_WIDTH: 432
-TEST_NO_CROP: 1 #  1 for dont crop input, test on the original size. 0 for crop.
+TEST_NO_CROP: 1 #  1 for dont crop input, test and train on the original size. 0 for crop.
 TEST_SAVE_FLIST: ./data/kexo_save_list.txt     #output folder list, 0 for not list
 
 
-MODEL_LOAD: places2_InpaintingModel            # 358000_InpaintingModel, 0 for new int
+MODEL_LOAD: places2_InpaintingModel  # 390000_InpaintingModel_KEXO   # places2_InpaintingModel # 358000_InpaintingModel, 0 for new int
 
 kpn_model_save_path: './result/model'
 
