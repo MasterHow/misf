@@ -29,6 +29,13 @@ class Dataset(torch.utils.data.Dataset):
         self.mask = config.MASK
         self.nms = config.NMSMASK_REVERSE
 
+        # my configs
+        if (config.TEST_NO_CROP != 0) and (training is False):
+            # 不裁剪直接进行测试, 不影响训练行为
+            self.crop_flag = False
+        else:
+            self.crop_flag = True
+
         self.reverse_mask = config.MASK_REVERSE
         self.mask_threshold = config.MASK_THRESHOLD
 
@@ -68,7 +75,7 @@ class Dataset(torch.utils.data.Dataset):
 
         # resize/crop if needed
         if size != 0:
-            img = self.resize(img, size, size)
+            img = self.resize(img, size, size, centerCrop=self.crop_flag)
 
         # create grayscale image
         img_gray = rgb2gray(img)

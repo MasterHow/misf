@@ -13,7 +13,7 @@ TEST_FLIST: ./data/kexo_flist.txt             #./data/face.txt
 
 TRAIN_MASK_FLIST: ./data/mask_20.txt
 VAL_MASK_FLIST: ./data/mask_20.txt
-TEST_MASK_FLIST: ./data/kexo_fov5_mlist.txt     #./data/mask_20.txt
+TEST_MASK_FLIST: ./data/kexo_fov20_mlist.txt     #./data/mask_20.txt
 TEST_MASK_BIN: 1    # use single channel mask
 
 LR: 0.0001                    # learning rate
@@ -21,7 +21,7 @@ D2G_LR: 0.1                   # discriminator/generator learning rate ratio
 BETA1: 0.0                    # adam optimizer beta1
 BETA2: 0.9                    # adam optimizer beta2
 
-INPUT_SIZE: 256               # input image size for training 0 for original size
+INPUT_SIZE: 256               # input image size for training 0 for original size (default: 256)
 SIGMA: 2                      # standard deviation of the Gaussian filter used in Canny edge detector (0: random, -1: no edge)
 MAX_ITERS: 2e6                # maximum number of iterations to train the model
 
@@ -62,9 +62,8 @@ TEST_SAMPLE_SAVE: D:\MyProject\PyThon\FlowInpainting\misf\results\KITTI360-EXI  
 TEST_SAVE_FINAL: 1    #only output inpainting result (pre2) , 0 for all save
 TEST_SAVE_HEIGHT: 240 # 0 for 256.
 TEST_SAVE_WIDTH: 432
+TEST_NO_CROP: 1 #  1 for dont crop input, test on the original size. 0 for crop.
 TEST_SAVE_FLIST: ./data/kexo_save_list.txt     #output folder list, 0 for not list
-
-
 
 
 MODEL_LOAD: places2_InpaintingModel            # 358000_InpaintingModel
