@@ -89,7 +89,9 @@ def save_sample_png(sample_folder, sample_name, img_list, name_list, pixel_max_c
         if (height != -1) and (width != -1):
             img_copy = cv2.resize(img_copy, (width, height))
         # Save to certain path
-        save_img_name = sample_name + '_' + name_list[i] + '.png'
+        # default
+        # save_img_name = sample_name + '_' + name_list[i] + '.png'
+        save_img_name = str(sample_name).zfill(5) + name_list[i] + '.png'
         save_img_path = os.path.join(sample_folder, save_img_name)
 
         aa = img_copy[img_copy > 255]

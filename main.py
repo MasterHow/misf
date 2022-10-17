@@ -7,6 +7,7 @@ import argparse
 from shutil import copyfile
 from src.config import Config
 from src.misf import MISF
+from src.dataset import Dataset
 import torch.nn as nn
 
 
@@ -65,6 +66,7 @@ def main(mode=None):
 
     # model test
     elif config.MODE == 2:
+        # default
         print('\nstart testing...\n')
         model.test()
 

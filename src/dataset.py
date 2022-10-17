@@ -126,7 +126,8 @@ class Dataset(torch.utils.data.Dataset):
 
         return img
 
-    def load_flist(self, flist):
+    @ staticmethod
+    def load_flist(flist):
         if flist is None:
             return []
         with open(flist, 'r') as j:

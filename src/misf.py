@@ -380,6 +380,13 @@ class MISF():
         lpips_list = []
 
         index = 0
+        dir_index = 0   # 用于指导输出文件夹路径切换
+        if self.config.TEST_SAVE_FLIST == 0:
+            # 单路径输出
+            output_dirs = None
+        else:
+            # 多路径输出
+            output_dirs = Dataset.load_flist(self.config.TEST_SAVE_FLIST)
         with torch.no_grad():
             for items in test_loader:
                 images, images_gray, edges, masks = self.cuda(*items)
@@ -392,6 +399,9 @@ class MISF():
 
                 # inpaint model
                 elif model == 2:
+                    if self.config.TEST_MASK_BIN == 1:
+                        # 使用单通道mask测试
+                        masks = masks[:, 0, :, :].unsqueeze(dim=1)
                     outputs = self.inpaint_model(images, edges, masks)
                     outputs_merged = (outputs * masks) + (images * (1 - masks))
 
@@ -425,12 +435,40 @@ class MISF():
 
                 if len(ssim_list) % 1 == 0:
                     images_masked = images * (1 - masks)
-                    img_list = [images_masked, images, outputs, outputs_merged]
-                    name_list = ['in', 'gt', 'pre1', 'pre2']
+                    if self.config.TEST_SAVE_FINAL == 0:
+                        # default, 输出所有的数据
+                        img_list = [images_masked, images, outputs, outputs_merged]
+                        name_list = ['in', 'gt', 'pre1', 'pre2']
+                        sample_name = '{}_'.format(len(ssim_list))
+                    else:
+                        # 只输出最终结果
+                        img_list = [outputs_merged]
+                        name_list = ['']
+                        sample_name = '{}'.format(len(ssim_list))
 
-                    kpn_utils.save_sample_png(sample_folder=self.config.TEST_SAMPLE_SAVE, sample_name='{}_'.format(len(ssim_list)),
+                    if self.config.TEST_SAVE_HEIGHT == 0:
+                        out_h = -1
+                        out_w = -1
+                    else:
+                        out_h = self.config.TEST_SAVE_HEIGHT
+                        out_w = self.config.TEST_SAVE_WIDTH
+
+                    if output_dirs is None:
+                        # default
+                        sample_folder = self.config.TEST_SAMPLE_SAVE
+                    else:
+                        # 改变输出路径
+                        sample_folder = output_dirs[dir_index]
+                        sample_name = index-1
+                        if index % 100 == 0:
+                            # KITTI360-EX每100帧切换一次
+                            dir_index += 1
+                            index = 0
+
+                    kpn_utils.save_sample_png(sample_folder=sample_folder, sample_name=sample_name,
                                               img_list=img_list,
-                                              name_list=name_list, pixel_max_cnt=255, height=-1, width=-1)
+                                              name_list=name_list, pixel_max_cnt=255, height=out_h, width=out_w)
+
 
             print('edge_psnr_ave:{} edge_ssim_ave:{} l1_ave:{} lpips:{}'.format(np.average(psnr_list),
                                                                                  np.average(ssim_list),

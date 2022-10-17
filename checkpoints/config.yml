@@ -9,11 +9,12 @@ VERBOSE: 0          # turns on verbose mode in the output console
 
 TRAIN_FLIST: ./data/face.txt
 VAL_FLIST: ./data/face.txt
-TEST_FLIST: ./data/face.txt
+TEST_FLIST: ./data/kexo_flist.txt             #./data/face.txt
 
 TRAIN_MASK_FLIST: ./data/mask_20.txt
 VAL_MASK_FLIST: ./data/mask_20.txt
-TEST_MASK_FLIST: ./data/mask_20.txt
+TEST_MASK_FLIST: ./data/kexo_fov5_mlist.txt     #./data/mask_20.txt
+TEST_MASK_BIN: 1    # use single channel mask
 
 LR: 0.0001                    # learning rate
 D2G_LR: 0.1                   # discriminator/generator learning rate ratio
@@ -57,11 +58,16 @@ FILTER_TYPE: '64' #
 
 TRAIN_SAMPLE_SAVE: ./result/train_sample
 EVAL_SAMPLE_SAVE: ./result/eval_sample
-TEST_SAMPLE_SAVE: ./result/test_20
+TEST_SAMPLE_SAVE: D:\MyProject\PyThon\FlowInpainting\misf\results\KITTI360-EXI         #./result/test_20
+TEST_SAVE_FINAL: 1    #only output inpainting result (pre2) , 0 for all save
+TEST_SAVE_HEIGHT: 240 # 0 for 256.
+TEST_SAVE_WIDTH: 432
+TEST_SAVE_FLIST: ./data/kexo_save_list.txt     #output folder list, 0 for not list
 
 
 
-MODEL_LOAD: 358000_InpaintingModel
+
+MODEL_LOAD: places2_InpaintingModel            # 358000_InpaintingModel
 
 kpn_model_save_path: './result/model'
 
