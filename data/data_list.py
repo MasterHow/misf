@@ -49,11 +49,15 @@ def save_list(input_path, out_put):
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\InnerSphere\\masks\\fov5\\', './kexi_fov5_mlist.txt')
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\InnerSphere\\masks\\fov10\\', './kexi_fov10_mlist.txt')
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\InnerSphere\\masks\\fov20\\', './kexi_fov20_mlist.txt')
-save_list('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\InnerSphere\\imgs\\', './kexi_save_list.txt')
+# save_list('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\InnerSphere\\imgs\\', './kexi_save_list.txt')
 
 # Outer Pinhole
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\OuterPinhole\\imgs\\', './kexo_flist.txt')
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\OuterPinhole\\masks\\fov5\\', './kexo_fov5_mlist.txt')
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\OuterPinhole\\masks\\fov10\\', './kexo_fov10_mlist.txt')
 # scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\OuterPinhole\\masks\\fov20\\', './kexo_fov20_mlist.txt')
-save_list('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\OuterPinhole\\imgs\\', './kexo_save_list.txt')
+# save_list('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\OuterPinhole\\imgs\\', './kexo_save_list.txt')
+
+# Outer Pinhole Train
+scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\train\\OuterPinhole\\imgs\\', './kexo_flist_train.txt')
+scan('D:\\MyProject\\PyThon\\FlowInpainting\\misf\\data\\KITTI360-EX\\train\\OuterPinhole\\masks\\', './kexo_fov_mlist_train.txt')

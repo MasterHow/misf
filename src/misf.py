@@ -64,7 +64,11 @@ class MISF():
             self.edge_model.load()
 
         elif self.config.MODEL == 2:
-            self.inpaint_model.load(self.config.MODEL_LOAD)
+            try:
+                self.inpaint_model.load(self.config.MODEL_LOAD)
+            except:
+                print('init model from random!')
+                pass
 
         else:
             self.edge_model.load('EdgeModel')

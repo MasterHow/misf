@@ -273,6 +273,11 @@ class InpaintingModel(BaseModel):
 
     def forward(self, images, _, masks):
         # images_masked = (images * (1 - masks).float()) + masks
+
+        if self.config.TRAIN_MASK_BIN == 1:
+            # 使用单通道mask测试
+            masks = masks[:, 0, :, :].unsqueeze(dim=1)
+
         images_masked = images * (1 - masks)
         inputs = torch.cat((images_masked, masks), dim=1)
         outputs = self.generator(inputs)      # in: [rgb(3) + edge(1)]
